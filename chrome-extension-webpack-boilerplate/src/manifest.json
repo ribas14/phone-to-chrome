@@ -1,5 +1,5 @@
 {
-  "name": "Chrome Extension Webpack",
+  "name": "Phone to Chrome",
   "options_page": "options.html",
   "background": {
     "page": "background.html"
@@ -12,7 +12,7 @@
     "128": "icon-128.png"
   },
   "permissions": [
-      "storage"
+    "storage"
   ],
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"

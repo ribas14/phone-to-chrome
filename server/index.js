@@ -5,39 +5,42 @@ const { User, Conversation, Message } = require('./db').models;
 
 // IMPORTANTE
 // remover force: true antes do deploy
+// conn.sync({ logging: false, force: true });
 conn.sync({ logging: false, force: true });
 const mobileSockets = {};
 
 io.on('connection', socket => {
-  socket.on('newUser', credentials => {
-    const { name, password } = credentials;
+  socket.on('newStringQr', credentials => {
+    console.log(credentials)
+    const stringQr = credentials;
     Promise.all([
       User.findOrCreate({
         where: {
-          name,
-          password
-        }
-      }),
-      User.findAll()
+          stringQr
+        } 
+      }), 
+      User.findOne()
     ])
-      .then(([user, users]) => {
+      .then(([user]) => {
         mobileSockets[user[0].id] = socket.id;
-        socket.emit('userCreated', { user: user[0], users });
-        socket.broadcast.emit('newUser', user[0]);
+        socket.emit('userCreated', { user: user[0] });
+        // socket.emit('newStringQr', user[0]);
+        Conversation.findOrCreateConversation(user[0].id)
+        .then(conversation => socket.emit('priorMessages', conversation.messages));
       });
   });
 
-  socket.on('chat', users => {
-    // Conversation.findOrCreateConversation(users.user.id, users.receiver.id)
-    Conversation.findOrCreateConversation(users.user.id)
+  socket.on('chat', user => {
+    Conversation.findOrCreateConversation(user.id)
       .then(conversation => socket.emit('priorMessages', conversation.messages));
   });
 
-  socket.on('message', ({ text, sender, receiver }) => {
-    Message.createMessage(text, sender, receiver)
+  socket.on('message', ({ text, sender }) => { 
+    console.log(sender)
+    Message.createMessage(text, sender)
       .then(message => {
         socket.emit('incomingMessage', message);
-        const receiverSocketId = mobileSockets[receiver.id];
+        const receiverSocketId = mobileSockets[sender.id];
         socket.to(receiverSocketId).emit('incomingMessage', message);
       });
   });

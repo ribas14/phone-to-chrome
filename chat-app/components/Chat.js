@@ -11,11 +11,11 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    openChat({ user: this.props.user, receiver: this.props.receiver });
+    openChat({ user: this.props.user });
   }
 
   send(message) {
-    sendMessage(message.text, this.props.user, this.props.receiver);
+    sendMessage(message.text, this.props.user);
   }
 
   render() {
@@ -34,7 +34,7 @@ class Chat extends React.Component {
 const mapState = (state, { navigation }) => ({
   messages: state.messages,
   user: state.user,
-  receiver: navigation.getParam('receivingUser')
+  // receiver: navigation.getParam('receivingUser')
 });
 
 export default connect(mapState)(Chat);

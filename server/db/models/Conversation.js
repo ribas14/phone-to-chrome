@@ -9,7 +9,8 @@ Conversation.findOrCreateConversation = function(user1Id) {
   return Conversation.find({
     where: {
       user1Id: {
-        [Op.or]: [user1Id, user2Id]
+        // [Op.or]: [user1Id, user2Id]
+        [Op.or]: [user1Id, user1Id]
       },
       // user2Id: {
       //   [Op.or]: [user1Id, user2Id]
@@ -24,7 +25,7 @@ Conversation.findOrCreateConversation = function(user1Id) {
       return Conversation.create(
         {
           user1Id: user1Id,
-          user2Id: user2Id
+          // user2Id: user2Id
         },
         {
           include: [conn.models.message],

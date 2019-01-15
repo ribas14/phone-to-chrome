@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "1cd38530aa2c30a7685e";
+/******/ 	var hotCurrentHash = "07724fbdc8ea251c9a2f";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1133,7 +1133,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _img
 
 __webpack_require__(/*! webpack-dev-server/client?http://localhost:3001 */"./node_modules/webpack-dev-server/client/index.js?http://localhost:3001");
 __webpack_require__(/*! webpack/hot/dev-server */"./node_modules/webpack/hot/dev-server.js");
-module.exports = __webpack_require__(/*! C:\Users\Santri\Documents\Chat\chrome-extension-webpack-boilerplate\src\js\background.js */"./src/js/background.js");
+module.exports = __webpack_require__(/*! C:\Users\Santri\Documents\phone-to-chrome\chrome-extension-webpack-boilerplate\src\js\background.js */"./src/js/background.js");
 
 
 /***/ })

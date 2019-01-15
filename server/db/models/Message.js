@@ -14,7 +14,7 @@ const Message = conn.define('message', {
 
 module.exports = Message;
 
-Message.createMessage = (text, sender, receiver) => {
+Message.createMessage = (text, sender) => {
     return Promise.all([
       Message.create({
         text,
@@ -23,7 +23,7 @@ Message.createMessage = (text, sender, receiver) => {
           name: sender.name
         }
       }),
-      conn.models.conversation.findOrCreateConversation(sender.id, receiver.id)
+      conn.models.conversation.findOrCreateConversation(sender.id)
     ])
       .then(([message, conversation]) => message.setConversation(conversation));
   };

@@ -1,40 +1,38 @@
 import { createStore, combineReducers } from "redux";
-import users, { gotUsers, gotNewUser } from "./users";
 import messages, { gotMessages, gotNewMessage } from "./messages";
-import user, { gotUser } from "./user";
+import user, { gotUser, gotNewUser } from "./user";
 import socket from "./socket";
 
 var navigate;
-const reducers = combineReducers({ users, messages, user });
+const reducers = combineReducers({ messages, user });
 const store = createStore(reducers);
 
 export default store;
-export * from "./users";
 export * from "./messages";
 
 export const login = (credentials, navigation) => {
   socket.emit("newUser", credentials);
   navigate = navigation.navigate;
 };
-export const openChat = users => {
-  socket.emit("chat", users);
+export const openChat = user => {
+  socket.emit("chat", user);
 };
-export const sendMessage = (text, sender, receiver) => {
-  socket.emit("message", { text, sender, receiver });
+export const sendMessage = (text, sender) => {
+  socket.emit("message", { text, sender });
 };
 
 socket.on("priorMessages", messages => {
-  store.dispatch(gotMessages(messages));
+  if (messages)
+    store.dispatch(gotMessages(messages));
 });
 socket.on("userCreated", response => {
-  const { user, users } = response;
+  const { user } = response;
   store.dispatch(gotUser(user));
-  store.dispatch(gotUsers(users));
-  navigate("Users");
+  navigate("Chat");
 });
-socket.on("newUser", user => {
-  store.dispatch(gotNewUser(user));
-});
+// socket.on("newUser", user => {
+//   store.dispatch(gotNewUser(user));
+// });
 socket.on("incomingMessage", message => {
   store.dispatch(gotNewMessage(message));
 });

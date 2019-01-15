@@ -5,8 +5,52 @@
   <title></title>
 </head>
 <body>
-  <h1>Hello!</h1>
-  <button id="teste">teste</button>
-  <img src="img/icon-128.png">
+  <div class="parent">
+
+    <div id='listMessages'>
+      <ul id="ulMessages">
+
+      </ul>
+    </div>
+  </div>
+
+  <textarea rows="2" id="text" class="text-area"></textarea>
+  <button id="sendMessage" class="btn-full">Send</button>
+  <button id="cleanStorage" class="btn-full">Clean</button>
+  <div id="placeHolder"></div>
+
 </body>
+<style>
+body{
+  height: 300px;
+  width: 300px;
+}
+ul {
+  list-style-type: none;
+  position:absolute;
+  bottom:0;
+  padding: 10px;
+
+}
+.parent{
+  position: relative;
+  height: 100%;
+  width: 100%
+}
+li {
+  padding: 3px
+}
+.btn-full {
+  width: 100%
+}
+.text-area {
+  width: 100%
+}
+#listMessages {
+  overflow: auto;
+  border: 1px solid silver;
+  height: 100%;
+  width: 100%
+}
+</style>
 </html>
