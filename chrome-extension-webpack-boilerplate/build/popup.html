@@ -1,76 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>   
-</head>
-<body>
-  <div class="parent">
-    <div id='listMessages'>
-      <ul id="ulMessages">
-
-      </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <div class="parent">
+      <div id="listMessages"><ul id="ulMessages"></ul></div>
     </div>
-  </div>
-  <textarea rows="2" id="text" class="text-area"></textarea>
-  
-  <button id="sendMessage" class="btn-full button is-primary">Send</button>
-  <button id="cleanStorage" class="btn-full button is-primary">Clean Storage</button>
-  <button id="cleanMessagesBackEnd" class="btn-full button is-primary">Clean Backend</button>
-  <div id="placeHolder"></div>
+    <textarea rows="2" id="text" class="text-area"></textarea>
 
-<script type="text/javascript" src="popup.bundle.js"></script></body>
-<style>
-body{
-  height: 300px;
-  width: 300px;
-}
-ul {
-  list-style-type: none;
-  /* position:absolute; */
-  bottom:0;
-  /* padding: 10px; */
-  width: 100%;
-  padding-left: 0;
+    <button id="sendMessage" class="btn-full button is-primary">Send</button>
+    <div id="placeHolder" class="grow"></div>
+    <hr>
+    <div class="columns is-mobile container-btn-secondary">
+      <div class="column" style="padding: 0 .75rem;">
+        <button id="cleanStorage" class="button is-info">
+          New identity
+        </button>
+      </div>
+      <div class="column" style="padding: 0 .75rem;">
+        <button id="cleanMessagesBackEnd" class="button is-danger">
+          Delete messages
+        </button>
+      </div>
+    </div>
 
-}
-#text{
-  margin-top: 10px;
-}
-.parent{
-  position: relative;
-  height: 100%;
-  width: 100%
-}
-li {
-  margin: 7px;
-  padding: 10px;
-}
-.btn-full {
-  width: 100%;
-  margin-bottom: 10px;
-}
-.text-area {
-  width: 100%
-}
-#listMessages {
-  overflow-y: auto;
-  overflow-x:hidden;
-  border: 1px solid silver;
-  height: 100%;
-  width: 100%
-}
-.time {
-  font-size: 10px;
-  float: right;
-}
-.message {
-  margin-bottom: 0 !important;
-  padding: 5px;
+    <div class="modal" id="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <p class="image is-4by3" id="full-qr-code"></p>
+        <!-- <div  class="full-image"></div> -->
+      </div>
+      <button
+        class="modal-close is-large"
+        id="close-modal"
+        aria-label="close"
+      ></button>
+    </div>
+  <script type="text/javascript" src="popup.bundle.js"></script></body>
+  <style>
+    body {
+      height: 300px;
+      width: 300px;
+    }
+    .image {
+      background: white;
+    }
+    p > img {
+      padding: 8px;
+      margin: auto;
+      height: 250px !important;
+      width: 250px !important;
+      max-height: 100% !important;
+      max-width: 100% !important;
+    }
+    img {
+      margin-right: 5px;
+      float: right;
+      max-height: 35px;
+      max-width: 35px;
+    }
+    ul {
+      list-style-type: none;
+      /* position:absolute; */
+      bottom: 0;
+      /* padding: 10px; */
+      width: 100%;
+      padding-left: 0;
+    }
+    .container-btn-secondary {
+      padding: 0 10px;
+      margin-bottom: 0;
+      margin-top: 0 !important;
+    }
+    #text {
+      margin-top: 10px;
+    }
+    .parent {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+    .full-image {
+      background: white;
+      height: auto;
+      width: 100%;
+    }
+    li {
+      margin: 7px;
+      padding: 10px;
+    }
+    .btn-full {
+      float: left;
+      margin-left: 10px;
+      width: 80%;
+      margin-bottom: 10px;
+    }
+    .text-area {
+      width: 100%;
+      padding: 5px;
+    }
+    .modal-content {
+      position: absolute;
+      top: 120px;
+      margin: 0;
+    }
+    #listMessages {
+      overflow-y: auto;
+      overflow-x: hidden;
+      border: 1px solid silver;
+      height: 100%;
+      width: 100%;
+    }
+    .time {
+      font-size: 10px;
+      float: right;
+    }
+    .message {
+      margin-bottom: 0 !important;
+      padding: 5px;
+    }
 
-}
-
-
-
-</style>
+    .grow {
+      transition: transform 0.2s;
+    }
+    .grow:hover {
+      cursor: pointer;
+    }
+  </style>
 </html>
