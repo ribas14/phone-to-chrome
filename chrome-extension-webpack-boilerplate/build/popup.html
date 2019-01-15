@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title></title>   
 </head>
 <body>
   <div class="parent">
-
     <div id='listMessages'>
       <ul id="ulMessages">
 
       </ul>
     </div>
   </div>
-
   <textarea rows="2" id="text" class="text-area"></textarea>
-  <button id="sendMessage" class="btn-full">Send</button>
-  <button id="cleanStorage" class="btn-full">Clean</button>
+  
+  <button id="sendMessage" class="btn-full button is-primary">Send</button>
+  <button id="cleanStorage" class="btn-full button is-primary">Clean Storage</button>
+  <button id="cleanMessagesBackEnd" class="btn-full button is-primary">Clean Backend</button>
   <div id="placeHolder"></div>
 
 <script type="text/javascript" src="popup.bundle.js"></script></body>
@@ -27,10 +27,15 @@ body{
 }
 ul {
   list-style-type: none;
-  position:absolute;
+  /* position:absolute; */
   bottom:0;
-  padding: 10px;
+  /* padding: 10px; */
+  width: 100%;
+  padding-left: 0;
 
+}
+#text{
+  margin-top: 10px;
 }
 .parent{
   position: relative;
@@ -38,19 +43,34 @@ ul {
   width: 100%
 }
 li {
-  padding: 3px
+  margin: 7px;
+  padding: 10px;
 }
 .btn-full {
-  width: 100%
+  width: 100%;
+  margin-bottom: 10px;
 }
 .text-area {
   width: 100%
 }
 #listMessages {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x:hidden;
   border: 1px solid silver;
   height: 100%;
   width: 100%
 }
+.time {
+  font-size: 10px;
+  float: right;
+}
+.message {
+  margin-bottom: 0 !important;
+  padding: 5px;
+
+}
+
+
+
 </style>
 </html>

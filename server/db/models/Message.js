@@ -3,7 +3,7 @@ const conn = require('../conn');
 const { Sequelize } = conn;
 
 const Message = conn.define('message', {
-  text: Sequelize.STRING,
+  text: Sequelize.STRING(1234),
   user: Sequelize.JSON,
   _id: {
     type: Sequelize.UUID,

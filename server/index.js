@@ -6,7 +6,7 @@ const { User, Conversation, Message } = require('./db').models;
 // IMPORTANTE
 // remover force: true antes do deploy
 // conn.sync({ logging: false, force: true });
-conn.sync({ logging: false, force: true });
+conn.sync({ logging: false });
 const mobileSockets = {};
 
 io.on('connection', socket => {
@@ -24,7 +24,6 @@ io.on('connection', socket => {
       .then(([user]) => {
         mobileSockets[user[0].id] = socket.id;
         socket.emit('userCreated', { user: user[0] });
-        // socket.emit('newStringQr', user[0]);
         Conversation.findOrCreateConversation(user[0].id)
         .then(conversation => socket.emit('priorMessages', conversation.messages));
       });
@@ -36,7 +35,7 @@ io.on('connection', socket => {
   });
 
   socket.on('message', ({ text, sender }) => { 
-    console.log(sender)
+    console.log(text)
     Message.createMessage(text, sender)
       .then(message => {
         socket.emit('incomingMessage', message);
