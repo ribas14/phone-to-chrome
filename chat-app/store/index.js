@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from "redux";
 import messages, { gotMessages, gotNewMessage } from "./messages";
-import user, { gotUser } from "./user";
-import room, { gotRoom } from "./room";
+import user, { gotUser, gotStringQr } from "./user";
+import room, { gotRoom, gotRoomStringQr } from "./room";
 import socket from "./socket";
 
 var navigate;
@@ -12,10 +12,21 @@ export default store;
 export * from "./messages";
 
 export const login = (credentials, navigation) => {
-  let stringQr = "42fqapk5wpj"
-  let roomStringQr = "nemz5vhx1kf"
-  socket.emit("newStringQr", { stringQr, roomStringQr});
+  let stringQr;
+  let roomStringQr;
+
   navigate = navigation.navigate;
+  if (!credentials) {
+    navigate("ScanScreen");
+  } else {
+    stringQr = credentials.stringQr;
+    store.dispatch(gotStringQr(stringQr));
+
+    roomStringQr = credentials.roomStringQr;
+    store.dispatch(gotRoomStringQr(roomStringQr));
+    
+    socket.emit("newStringQr", { stringQr, roomStringQr });
+  }
 };
 export const openChat = (user, room) => {
   socket.emit("chat", { user, room });
@@ -25,8 +36,7 @@ export const sendMessage = (text, sender, room) => {
 };
 
 socket.on("priorMessages", messages => {
-  if (messages)
-    store.dispatch(gotMessages(messages));
+  if (messages) store.dispatch(gotMessages(messages));
 });
 socket.on("incomingMessage", message => {
   store.dispatch(gotNewMessage(message));
@@ -38,8 +48,3 @@ socket.on("userCreated", response => {
   store.dispatch(gotRoom(room));
   navigate("Chat");
 });
-// socket.on("newUser", user => {
-//   store.dispatch(gotNewUser(user));
-// });
-
-

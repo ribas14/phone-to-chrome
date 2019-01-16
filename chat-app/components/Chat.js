@@ -1,6 +1,5 @@
 import React from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { View, Text, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { openChat, sendMessage } from "../store";
 

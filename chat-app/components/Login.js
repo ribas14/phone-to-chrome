@@ -1,14 +1,11 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { login } from '../store';
+import { connect } from "react-redux";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
-    this.state = {
-      name: '',
-      password: ''
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,38 +15,31 @@ export default class Login extends React.Component {
   }
 
   handleSubmit() {
-    login(this.state, this.props.navigation);
+    login({stringQr: this.props.stringQr, roomStringQr: this.props.roomStringQr}, this.props.navigation);
+  }
+
+  componentDidMount() {
+    if (this.props.roomStringQr) {
+      login({stringQr: this.props.stringQr, roomStringQr: this.props.roomStringQr}, this.props.navigation);
+    } else {
+      this.props.navigation.navigate("ScanScreen")
+    }
   }
 
   render() {
     return (
       <View style={ styles.container }>
-        <Text style={ styles.text }>Enter your name and password:</Text>
-        <TextInput
-          onChangeText={ value => this.handleChange('name', value) }
-          returnKeyType='next'
-          autoCorrect={ false }
-          onSubmitEditing={ () => this.passwordInput.focus() }
-          style={ styles.input }
-        />
-        <TextInput
-          onChangeText={ value => this.handleChange('password', value)}
-          secureTextEntry
-          returnKeyType='go'
-          autoCapitalize='none'
-          style={ styles.input }
-          ref={ input => this.passwordInput = input }
-        />
-        <TouchableOpacity
-          onPress={ this.handleSubmit }
-          style={ styles.button }
-        >
-          <Text style={ styles.buttonText }>Login</Text>
-        </TouchableOpacity>
       </View>
     );
   }
 }
+
+const mapState = (state, { navigation }) => ({
+  stringQr: state.stringQr,
+  roomStringQr: state.roomStringQr
+});
+
+export default connect(mapState)(Login);
 
 const styles = StyleSheet.create({
   container: {

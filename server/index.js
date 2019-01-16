@@ -8,7 +8,7 @@ const { Room, User, Conversation, Message } = require("./db").models;
 // IMPORTANTE
 // remover force: true antes do deploy
 // conn.sync({ logging: false, force: true });
-conn.sync({ logging: false, force: true });
+conn.sync({ logging: false });
 const mobileSockets = {};
 
 io.on("connection", socket => {
@@ -41,20 +41,6 @@ io.on("connection", socket => {
         );
       });
     });
-    // Promise.all([
-    //   User.findOrCreate({
-    //     where: {
-    //       stringQr
-    //     }
-    //   }),
-    //   User.findOne()
-    // ]).then(([user]) => {
-    //   mobileSockets[user[0].id] = socket.id;
-    //   socket.emit("userCreated", { user: user[0] });
-    //   Conversation.findOrCreateConversation(user[0].id).then(conversation =>
-    //     socket.emit("priorMessages", conversation.messages)
-    //   );
-    // });
   });
 
   socket.on("chat", (obj) => {
@@ -65,7 +51,6 @@ io.on("connection", socket => {
 
   socket.on("message", ({ text, sender, room }) => {
     Message.createMessage(text, sender, room).then(message => {
-      const receiverSocketId = mobileSockets[sender.id];
       io.in(room.roomStringQr).emit("incomingMessage", message);
     });
   });
