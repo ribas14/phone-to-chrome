@@ -25,6 +25,8 @@ export const login = (credentials, navigation) => {
     roomStringQr = credentials.roomStringQr;
     store.dispatch(gotRoomStringQr(roomStringQr));
     
+    console.log(roomStringQr)
+
     socket.emit("newStringQr", { stringQr, roomStringQr });
   }
 };

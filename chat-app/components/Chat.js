@@ -2,6 +2,8 @@ import React from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import { connect } from "react-redux";
 import { openChat, sendMessage } from "../store";
+import { View, Platform } from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     openChat({ user: this.props.user, room: this.props.room });
+    // this.giftedChat.focusTextInput()
   }
 
   send(message) {
@@ -19,23 +22,16 @@ class Chat extends React.Component {
 
   render() {
     return (
-      <GiftedChat
-      messages={this.props.messages}
-      user={{
-        _id: this.props.user.id
-      }}
-      onSend={message => this.send(message[0])}
-    />
-      // <ScrollView>
-      //   {
-      //     this.props.messages && 
-      //     this.props.messages.reverse().map((item, index) => (
-      //         <View key={index}>
-      //           <Text>{item.text}</Text>
-      //         </View>
-      //     ))
-      //   }
-      // </ScrollView>
+      <View style={{flex: 1}}>
+          <GiftedChat
+          messages={this.props.messages}
+          user={{
+            _id: this.props.user.id
+          }}
+          onSend={message => this.send(message[0])}
+        />
+        {Platform.OS === 'android' ? <KeyboardSpacer topSpacing={50}/> : null }
+      </View>
     );
   }
 }

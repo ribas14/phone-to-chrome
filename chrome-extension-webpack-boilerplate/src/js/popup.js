@@ -30,6 +30,7 @@ function cleanStorage() {
     if (error) {
       console.error(error);
     } else {
+      cleanLi()
       main()
     }
   });
@@ -72,6 +73,12 @@ function createQrCode(stringQr) {
   qr.make();
   return qr.createImgTag(10, 0);
 }
+
+function cleanLi(){
+  var ul = document.getElementById("ulMessages");
+  ul.innerHTML = ''
+}
+
 
 function cleanMessagesBackEnd() {
   chrome.storage.sync.get(["userObject", "roomObject"], function(user) {
