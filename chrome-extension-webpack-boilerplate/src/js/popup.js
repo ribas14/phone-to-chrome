@@ -15,17 +15,13 @@ socket.on("priorMessages", messages => {
 
 socket.on("userCreated", response => {
   chrome.storage.sync.set({
-    userObject: response.user
+    userObject: response.user,
+    roomObject: response.room
   }); 
 });    
 
-socket.on("newStringQr", user => {
-  // store.dispatch(gotNewUser(user));
-});
-
 socket.on("incomingMessage", message => {
   appendToList(message);
-  // store.dispatch(gotNewMessage(message));
 });
 
 function cleanStorage() {
@@ -36,22 +32,28 @@ function cleanStorage() {
     }
   });
 }
-
+   
 function main() {
-  chrome.storage.sync.get(["stringQr"], function(res) {
+  chrome.storage.sync.get(["stringQr", "roomStringQr"], function(res) {
     let stringQr;
-    if (!res.stringQr) {
+    let roomStringQr;
+    if (!res.stringQr && !res.rommStringQr) {
+      roomStringQr = Math.random()
+        .toString(36)
+        .substring(2, 19);
       stringQr = Math.random()
         .toString(36)
         .substring(2, 19);
       chrome.storage.sync.set({
-        stringQr: stringQr
+        stringQr: stringQr,
+        roomStringQr: roomStringQr
       });
     } else {
       stringQr = res.stringQr;
+      roomStringQr = res.roomStringQr;
     }       
-    socket.emit("newStringQr", stringQr);
-    document.getElementById("placeHolder").innerHTML = createQrCode(stringQr);
+    socket.emit("newStringQr", { stringQr, roomStringQr } );
+    document.getElementById("placeHolder").innerHTML = createQrCode(roomStringQr);
 
     
   });
@@ -77,33 +79,51 @@ function cleanMessagesBackEnd() {
 function sendMessage() {
   let text = document.getElementById("text").value;
   if (text.length > 0)
-    chrome.storage.sync.get(["userObject"], function(user) {
+    chrome.storage.sync.get(["userObject", "roomObject"], function(user) {
       let sender = user.userObject;
-      socket.emit("message", { text, sender });
+      let room = user.roomObject
+      socket.emit("message", { text, sender, room });
       document.getElementById("text").value = "";
     });   
 }
+ 
+function appendToList(message) {  
+  chrome.storage.sync.get(["userObject"], function(res) {
 
-function appendToList(message) {        
-  var ul = document.getElementById("ulMessages");
-  var li = document.createElement("li");    
+    var ul = document.getElementById("ulMessages");
+    var li = document.createElement("li");    
+    
+    
+    var text = document.createElement("div");
+
+    text.classList.add("class", "message"); 
+
+    text.appendChild(document.createTextNode(message.text));
   
-  var text = document.createElement("div");
-  text.setAttribute("class", "message"); 
-  text.appendChild(document.createTextNode(message.text));
+    var time = document.createElement("div");
+    time.appendChild(
+      document.createTextNode(moment(message.createdAt).fromNow()) 
+    ); 
+       
+    if (message.user._id == res.userObject.id){
+      text.classList.add("class", "message-op"); 
+      time.classList.add("class", "time-right");
+    } else {
+      time.classList.add("class", "time-left");
+    }
+    li.appendChild(text);
+    li.appendChild(time);
+    ul.appendChild(li);   
+     
+    var objDiv = document.getElementById("listMessages");
+    objDiv.scrollTop = objDiv.scrollHeight;
 
-  var time = document.createElement("div");
-  time.setAttribute("class", "time");
-  time.appendChild(
-    document.createTextNode(moment(message.createdAt).fromNow()) 
-  ); 
 
-  li.appendChild(text);
-  li.appendChild(time);
-  ul.appendChild(li);   
-   
-  var objDiv = document.getElementById("listMessages");
-  objDiv.scrollTop = objDiv.scrollHeight;
+
+  });
+
+
+
 }
 
 function expandQrCode() {   
@@ -115,7 +135,6 @@ function expandQrCode() {
 
 function closeModal() {   
   document.getElementById("modal").classList.remove('is-active')
-  // document.getElementById("modal").removeAttribute("class", "is-active")
 } 
 
 document.addEventListener("DOMContentLoaded", function() {

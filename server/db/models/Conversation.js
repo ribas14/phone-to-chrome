@@ -5,13 +5,10 @@ const { Op } = Sequelize;
 const Conversation = conn.define("conversation", {});
 
 // Conversation.findOrCreateConversation = function(user1Id, user2Id) {
-Conversation.findOrCreateConversation = function(user1Id) {
-  return Conversation.find({
+Conversation.findOrCreateConversation = function(roomId) {
+  return Conversation.findOne({
     where: {
-      user1Id: {
-        // [Op.or]: [user1Id, user2Id]
-        [Op.or]: [user1Id, user1Id]
-      },
+      roomId: roomId,
       // user2Id: {
       //   [Op.or]: [user1Id, user2Id]
       // }
@@ -24,8 +21,7 @@ Conversation.findOrCreateConversation = function(user1Id) {
     } else {
       return Conversation.create(
         {
-          user1Id: user1Id,
-          // user2Id: user2Id
+          roomId: roomId,
         },
         {
           include: [conn.models.message],
