@@ -5,8 +5,8 @@ import {  Platform } from "react-native"
 import { Icon } from 'native-base';
 
 import CustomDrawerContentComponent from './CustomDrawerContentComponent'
-import Chat from '../components/Chat'
-import Settings from '../components/Settings'
+import ChatNav from './ChatNav'
+import SettingsNav from './SettingsNav'
 
 
 // tamanho do statusbar grande demais
@@ -16,21 +16,21 @@ if (Platform.OS === 'android') {
 
 const Drawer = createDrawerNavigator({
   Chat: {
-    screen: Chat,
+    screen: ChatNav,
     navigationOptions: () =>  {
       return {
         drawerIcon: () => (
           <Icon 
-            name="md-chatbubbles"
+            name="chatbubbles"
           />
         )
       }
     }
   },
   Settings: {
-    screen: Settings,
+    screen: SettingsNav,
     navigationOptions: () =>  {
-      return {
+      return {  
         drawerIcon: () => (
           <Icon 
             name="md-settings"
@@ -41,9 +41,10 @@ const Drawer = createDrawerNavigator({
   }
 }, {
   drawerBackgroundColor: 'rgba(255,255,255,0.8)',
+  keyboardDismissMode: 'on-drag',
   contentComponent: CustomDrawerContentComponent, 
   activeTintColor: '#890409',
-  initialRouteName: 'Chat',
+  initialRouteName: 'Settings',
 });
     
 

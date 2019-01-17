@@ -4,7 +4,7 @@ import store from "./store";
 import { createSwitchNavigator, createAppContainer  } from "react-navigation";
 import ScanScreen from './components/ScanScreen';
 import Login from './components/Login';
-import Chat from './components/Chat';
+import Drawer from './nav/Drawer';
 
 export default class App extends React.Component {
   render() {
@@ -23,8 +23,8 @@ const RootStack = createAppContainer(createSwitchNavigator({
   ScanScreen: {
     screen: ScanScreen
   },
-  Chat: {
-    screen: Chat
+  Drawer: {
+    screen: Drawer
   }
  }, {
   initialRouteName: 'Login',

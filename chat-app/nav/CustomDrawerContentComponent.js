@@ -7,95 +7,31 @@ import {
   ScrollView,
   View,
   Image,
-  TouchableOpacity,
   ActivityIndicator,
   Text,
-  AsyncStorage
+  AsyncStorage,
 } from "react-native";
-import api from "../../../VARIAVEIS_GLOBAIS.js";
-import axios from "axios";
-import qs from "qs";
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       listaCadastros: [],
-      carregando: false
+      loading: false
     };
-    this._selecionarCpf = this._selecionarCpf.bind(this);
-    this._getNomePeloCpfCnpj = this._getNomePeloCpfCnpj.bind(this);
-  }
-
-  async _selecionarCpf(obj) {
-    this.setState({ carregando: true });
-    let data = qs.stringify({
-      operacao: "selecionarDocumento",
-      cpfCnpj: obj.cpfCnpj
-    });
-    axios
-      .post(api.API_CADASTRO, data)
-      .then(async res => {
-        state.cpfCnpjSelecionado = obj.cpfCnpj.replace(/[^\d.-]/g, "");
-        state.nome = obj.nomeResumido ? obj.nomeResumido : obj.nomeRazaoSocial;
-        this.setState({
-          carregando: false
-        });
-      })
-      .catch(err => {
-        this.setState({
-          carregando: false
-        });
-        console.log(err);
-      });
   }
 
   _destruirSessao = async () => {
-    if (this._isMounted) this.setState({ carregando: true });
-    axios.defaults.withCredentials = true;
-    let data = qs.stringify({ operacao: "DestruirSessao" });
-    let header = qs.stringify({
-      headers: { "Content-Type": "application/json" }
-    });
 
-    axios
-      .post(api.API_PESSOA, data, header)
-      .then(async response => {
-        state.listaCpfCnpj = []
-        state.nome = ''
-        state.nocpfCnpjSelecionadoe = ''
-        if (this._isMounted) this.setState({ carregando: false });
-        await AsyncStorage.removeItem("id");
-        this.props.navigation.navigate(
-          response.data.mensagem == "logout" ? "Login" : "Drawer"
-        );
-      })
-      .catch(e => {
-        if (this._isMounted) this.setState({ carregando: false });
-        console.warn(e);
-      });
   };
 
-  _getNomePeloCpfCnpj() {
-    for (var i of state.listaCpfCnpj) {
-      if (
-        i.cpfCnpj.replace(/\D+/g, "") ==
-        state.cpfCnpjSelecionado.replace(/\D+/g, "")
-      ) {
-        state.nome = i.nomeResumido ? i.nomeResumido : i.nomeRazaoSocial;
-      } else {
-        state.nome = "";
-      }
-    }
-  }
 
   async componentDidMount() {
-    this._getNomePeloCpfCnpj();
+
   }
 
   render() {
-    const { carregando } = this.state;
-    const { listaCpfCnpj, cpfCnpjSelecionado, nome } = state;
+    const { loading } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
@@ -115,7 +51,7 @@ class CustomDrawerContentComponent extends React.Component {
                 }}
               />
             </View>
-            {!carregando ? (
+            {!loading ? (
               <View
                 style={{
                   justifyContent: "center",
@@ -133,26 +69,10 @@ class CustomDrawerContentComponent extends React.Component {
                     textAlign: "center"
                   }}
                 >
-                  {nome}
                 </Text>
                 <View>
                   <View>
-                    <TextInputMask
-                      editable={false}
-                      selectTextOnFocus={false}
-                      disabled={true}
-                      style={{
-                        padding: 5,
-                        fontSize: 15,
-                        textAlign: "center"
-                      }}
-                      type={
-                        cpfCnpjSelecionado.replace(/\D+/g, "").length < 12
-                          ? "cpf"
-                          : "cnpj"
-                      }
-                      value={cpfCnpjSelecionado}
-                    />
+
                   </View>
                 </View>
               </View>
@@ -177,19 +97,6 @@ class CustomDrawerContentComponent extends React.Component {
               forceInset={{ top: "always", horizontal: "never" }}
             >
               <DrawerItems {...this.props} />
-              <View style={styles.buttonView}>
-                <TouchableOpacity
-                  style={styles.buttonView}
-                  onPress={() => this._destruirSessao()}
-                >
-                  <Icon name="md-log-out" />
-                  <Text
-                    style={{ fontWeight: "600", paddingLeft: 35, marginTop: 5 }}
-                  >
-                    Sair
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </SafeAreaView>
           </View>
         </ScrollView>
@@ -238,4 +145,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default view(CustomDrawerContentComponent);
+export default CustomDrawerContentComponent;
