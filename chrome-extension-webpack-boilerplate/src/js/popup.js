@@ -7,11 +7,11 @@ import * as moment from "moment";
 const socket = io.connect("http://localhost:3000");
 
 socket.on("qrCodeReadOnMobile", () => {
-  closeModal();
+  closeModal()
 });
 
 socket.on("cleanStorage", () => {
-  cleanStorage();
+  cleanStorage()
 });
 
 socket.on("priorMessages", messages => {
@@ -25,7 +25,7 @@ socket.on("userCreated", response => {
   chrome.storage.sync.set({
     userObject: response.user,
     roomObject: response.room
-  });
+  });        
 });
 
 socket.on("incomingMessage", message => {
@@ -34,20 +34,20 @@ socket.on("incomingMessage", message => {
 
 function cleanStorage() {
   chrome.storage.sync.get(["roomStringQr"], function(res) {
-    let rommStringQr = res.roomStringQr;
+    let rommStringQr = res.roomStringQr
 
     chrome.storage.sync.clear(function() {
       var error = chrome.runtime.lastError;
       if (error) {
         console.error(error);
       } else {
-        console.log("teste");
-        socket.emit("newId", rommStringQr);
-        cleanLi();
-        main();
+        socket.emit('newId', rommStringQr)
+        cleanLi()
+        main()
       }
-    });
-  });
+    })
+  })
+
 }
 
 function main() {
@@ -61,15 +61,12 @@ function main() {
       stringQr = Math.random()
         .toString(36)
         .substring(2, 19);
-      chrome.storage.sync.set(
-        {
-          stringQr: stringQr,
-          roomStringQr: roomStringQr
-        },
-        function() {
-          expandQrCode();
-        }
-      );
+      chrome.storage.sync.set({
+        stringQr: stringQr,
+        roomStringQr: roomStringQr
+      }, function(){
+        expandQrCode()
+      });
     } else {
       stringQr = res.stringQr;
       roomStringQr = res.roomStringQr;
@@ -91,10 +88,11 @@ function createQrCode(stringQr) {
   return qr.createImgTag(10, 0);
 }
 
-function cleanLi() {
+function cleanLi(){
   var ul = document.getElementById("ulMessages");
-  ul.innerHTML = "";
+  ul.innerHTML = ''
 }
+
 
 function cleanMessagesBackEnd() {
   chrome.storage.sync.get(["userObject", "roomObject"], function(user) {
@@ -111,10 +109,10 @@ function sendMessage() {
       let sender = user.userObject;
       let room = user.roomObject;
       socket.emit("message", { text, sender, room });
-      document.getElementById("text").value = "";
+      document.getElementById("text").value = "";   
     });
 }
-
+   
 function appendToList(message) {
   chrome.storage.sync.get(["userObject"], function(res) {
     var ul = document.getElementById("ulMessages");
@@ -152,11 +150,11 @@ function expandQrCode() {
     document.getElementById("full-qr-code").innerHTML = createQrCode(
       res.roomStringQr
     );
-  });
+  }); 
 }
 
-function closeModal() {
-  document.getElementById("modal").classList.remove("is-active");
+function closeModal() {  
+  document.getElementById("modal").classList.remove("is-active");    
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -168,8 +166,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document
     .getElementById("placeHolder")
     .addEventListener("click", expandQrCode);
-  document
-    .getElementById("cleanMessagesBackEnd")
-    .addEventListener("click", cleanMessagesBackEnd);
+  // document
+  //   .getElementById("cleanMessagesBackEnd")
+  //   .addEventListener("click", cleanMessagesBackEnd);
   main();
 });

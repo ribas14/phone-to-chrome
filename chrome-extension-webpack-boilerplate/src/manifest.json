@@ -1,6 +1,6 @@
 {
-  "name": "Phone to Chrome",
-  // "options_page": "options.html",
+  "name": "Chrome to Phone",
+  "options_page": "options.html",
   "background": {
     "page": "background.html"
   },
