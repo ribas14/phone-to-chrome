@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 12988,
   "expoServerNgrokUrl": "https://93-gdw.anonymous.chat-app.exp.direct",
   "packagerNgrokUrl": "https://packager.93-gdw.anonymous.chat-app.exp.direct",
-  "ngrokPid": 14824
+  "ngrokPid": 13736,
+  "packagerPort": 19001,
+  "packagerPid": 11380,
+  "devToolsPort": 19002
 }

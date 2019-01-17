@@ -6,6 +6,14 @@ import * as moment from "moment";
 
 const socket = io.connect("http://localhost:3000");
 
+socket.on("qrCodeReadOnMobile", () => {
+  closeModal()
+});
+
+socket.on("cleanStorage", () => {
+  cleanStorage()
+});
+
 socket.on("priorMessages", messages => {
   if (messages)
     messages.reverse().forEach(function(message) {
@@ -25,15 +33,22 @@ socket.on("incomingMessage", message => {
 });
 
 function cleanStorage() {
-  chrome.storage.sync.clear(function() {
-    var error = chrome.runtime.lastError;
-    if (error) {
-      console.error(error);
-    } else {
-      cleanLi()
-      main()
-    }
-  });
+  chrome.storage.sync.get(["roomStringQr"], function(res) {
+    let rommStringQr = res.roomStringQr
+
+    chrome.storage.sync.clear(function() {
+      var error = chrome.runtime.lastError;
+      if (error) {
+        console.error(error);
+      } else {
+        console.log('teste')
+        socket.emit('newId', rommStringQr)
+        cleanLi()
+        main()
+      }
+    })
+  })
+
 }
 
 function main() {

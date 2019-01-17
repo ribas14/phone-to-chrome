@@ -35,14 +35,14 @@ class Login extends React.Component {
 
       login({ stringQr, roomStringQr }, this.props.navigation);
     } else {
-      roomStringQr = "1gh7h1f7cl8"
-      stringQr = "1df7h1f7cl8"
+      // roomStringQr = "6gvx70cp3h"
+      // stringQr = "1df7h1f7cl8"
 
-      login({ stringQr, roomStringQr }, this.props.navigation);
+      // login({ stringQr, roomStringQr }, this.props.navigation);
 
 
 
-      // this.props.navigation.navigate("ScanScreen");
+      this.props.navigation.navigate("ScanScreen");
     }
   }
 

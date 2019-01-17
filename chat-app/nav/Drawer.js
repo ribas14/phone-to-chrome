@@ -10,7 +10,7 @@ import SettingsNav from './SettingsNav'
 
 
 // tamanho do statusbar grande demais
-if (Platform.OS === 'android') {
+if (Platform.OS === 'android') {   
   SafeAreaView.setStatusBarHeight(0);
 }
 
@@ -44,7 +44,7 @@ const Drawer = createDrawerNavigator({
   keyboardDismissMode: 'on-drag',
   contentComponent: CustomDrawerContentComponent, 
   activeTintColor: '#890409',
-  initialRouteName: 'Settings',
+  initialRouteName: 'Chat',
 });
     
 

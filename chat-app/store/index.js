@@ -1,8 +1,13 @@
 import { createStore, combineReducers } from "redux";
-import messages, { gotMessages, gotNewMessage } from "./messages";
-import user, { gotUser, gotStringQr } from "./user";
-import room, { gotRoom, gotRoomStringQr } from "./room";
+import messages, {
+  gotMessages,
+  gotNewMessage,
+  cleanMessages
+} from "./messages";
+import user, { gotUser, gotStringQr, cleanUser } from "./user";
+import room, { gotRoom, gotRoomStringQr, cleanRoom } from "./room";
 import socket from "./socket";
+import { AsyncStorage } from "react-native";
 
 var navigate;
 const reducers = combineReducers({ messages, user, room });
@@ -24,10 +29,9 @@ export const login = (credentials, navigation) => {
 
     roomStringQr = credentials.roomStringQr;
     store.dispatch(gotRoomStringQr(roomStringQr));
-    
-    console.log(roomStringQr)
 
     socket.emit("newStringQr", { stringQr, roomStringQr });
+    qrCodeRead(roomStringQr)
   }
 };
 export const openChat = (user, room) => {
@@ -37,9 +41,26 @@ export const sendMessage = (text, sender, room) => {
   socket.emit("message", { text, sender, room });
 };
 
+export const qrCodeRead = (room) => {
+  socket.emit("qrCodeReadOnMobile", room);
+};
+
+export const cleanStorage = () => {
+  navigate("ScanScreen");
+  AsyncStorage.clear();
+  store.dispatch(cleanMessages());
+  store.dispatch(cleanUser());
+  store.dispatch(cleanRoom());
+}
+
+socket.on("cleanStorage", () => {
+  cleanStorage()
+});
+
 socket.on("priorMessages", messages => {
   if (messages) store.dispatch(gotMessages(messages));
 });
+
 socket.on("incomingMessage", message => {
   store.dispatch(gotNewMessage(message));
 });

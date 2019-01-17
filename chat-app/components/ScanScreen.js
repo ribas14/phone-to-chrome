@@ -1,8 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, AsyncStorage } from "react-native";
+import { StyleSheet, Text, View, AsyncStorage, Dimensions, Image } from "react-native";
 import { BarCodeScanner, Permissions } from "expo";
 import { connect } from "react-redux";
 import { login } from "../store";
+
+
+const { width } = Dimensions.get('window')
+const qrSize = width * 0.7
 
 class ScanScreen extends React.Component {
   constructor() {
@@ -19,7 +23,7 @@ class ScanScreen extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
   }
-
+      
   render() {
     const { hasCameraPermission } = this.state;
 
@@ -33,8 +37,18 @@ class ScanScreen extends React.Component {
       <View style={{ flex: 1 }}>
         <BarCodeScanner
           onBarCodeScanned={this.handleBarCodeScanned}
-          style={StyleSheet.absoluteFill}
-        />
+          style={[StyleSheet.absoluteFill, styles.container]}>
+          <Text style={styles.description}>Scan your QR code</Text>
+          <Image
+            style={styles.qr}
+            source={require('../assets/QR.png')}
+          />
+          <Text
+            onPress={() => this.props.navigation.pop()}
+            style={styles.cancel}>
+            Cancel
+          </Text>
+        </BarCodeScanner>
       </View>
     );
   }
@@ -67,6 +81,31 @@ class ScanScreen extends React.Component {
   };
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  qr: {
+    marginTop: '20%',
+    marginBottom: '20%',
+    width: qrSize,
+    height: qrSize,
+  },
+  description: {
+    fontSize: width * 0.09,
+    marginTop: '10%',
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+  },
+  cancel: {
+    fontSize: width * 0.05,
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+  },
+})
 function delay(time) {
   return new Promise(function(resolve, reject) {
     setTimeout(() => resolve(), time);
