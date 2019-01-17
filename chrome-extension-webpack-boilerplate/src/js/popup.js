@@ -7,11 +7,11 @@ import * as moment from "moment";
 const socket = io.connect("http://localhost:3000");
 
 socket.on("qrCodeReadOnMobile", () => {
-  closeModal()
+  closeModal();
 });
 
 socket.on("cleanStorage", () => {
-  cleanStorage()
+  cleanStorage();
 });
 
 socket.on("priorMessages", messages => {
@@ -25,7 +25,7 @@ socket.on("userCreated", response => {
   chrome.storage.sync.set({
     userObject: response.user,
     roomObject: response.room
-  });        
+  });
 });
 
 socket.on("incomingMessage", message => {
@@ -34,21 +34,20 @@ socket.on("incomingMessage", message => {
 
 function cleanStorage() {
   chrome.storage.sync.get(["roomStringQr"], function(res) {
-    let rommStringQr = res.roomStringQr
+    let rommStringQr = res.roomStringQr;
 
     chrome.storage.sync.clear(function() {
       var error = chrome.runtime.lastError;
       if (error) {
         console.error(error);
       } else {
-        console.log('teste')
-        socket.emit('newId', rommStringQr)
-        cleanLi()
-        main()
+        console.log("teste");
+        socket.emit("newId", rommStringQr);
+        cleanLi();
+        main();
       }
-    })
-  })
-
+    });
+  });
 }
 
 function main() {
@@ -62,12 +61,15 @@ function main() {
       stringQr = Math.random()
         .toString(36)
         .substring(2, 19);
-      chrome.storage.sync.set({
-        stringQr: stringQr,
-        roomStringQr: roomStringQr
-      }, function(){
-        expandQrCode()
-      });
+      chrome.storage.sync.set(
+        {
+          stringQr: stringQr,
+          roomStringQr: roomStringQr
+        },
+        function() {
+          expandQrCode();
+        }
+      );
     } else {
       stringQr = res.stringQr;
       roomStringQr = res.roomStringQr;
@@ -89,11 +91,10 @@ function createQrCode(stringQr) {
   return qr.createImgTag(10, 0);
 }
 
-function cleanLi(){
+function cleanLi() {
   var ul = document.getElementById("ulMessages");
-  ul.innerHTML = ''
+  ul.innerHTML = "";
 }
-
 
 function cleanMessagesBackEnd() {
   chrome.storage.sync.get(["userObject", "roomObject"], function(user) {

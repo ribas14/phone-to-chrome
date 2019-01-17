@@ -1,5 +1,5 @@
 import React from "react";
-import { View, AsyncStorage, Text, Button  } from "react-native";
+import { StyleSheet, View, AsyncStorage, Text, Button } from "react-native";
 import { connect } from "react-redux";
 import { Icon } from "native-base";
 import socket from "../store/socket";
@@ -37,7 +37,7 @@ class Login extends React.Component {
   };
 
   newIdentity() {
-    socket.emit('newId', this.props.room.roomStringQr)
+    socket.emit("newId", this.props.room.roomStringQr);
     AsyncStorage.clear();
   }
 
@@ -47,18 +47,26 @@ class Login extends React.Component {
 
   render() {
     return (
-        <View>
-          <Button
-            onPress={() => this.newIdentity()}
-            title="New identity"
-            color="#841584"
-            accessibilityLabel="Learn more about this purple button"
-          />
-        </View>
-    )
+      <View style={styles.container}>
+        <Button
+          onPress={() => this.newIdentity()}
+          title="New identity"
+          color="#209cee"
+          accessibilityLabel="Learn more about this purple button"
+        />
+      </View>
+    );
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    padding: 20
+  },
+
+});
 
 const mapState = (state, { navigation }) => ({
   room: state.room

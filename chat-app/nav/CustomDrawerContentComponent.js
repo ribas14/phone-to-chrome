@@ -45,10 +45,9 @@ class CustomDrawerContentComponent extends React.Component {
                   borderRadius: 10
                 }}
                 resizeMode="contain"
-                source={{
-                  uri:
-                    "https://www.washingtonpost.com/resizer/zeUI0pPP75Zvhh0lKmg7phuSGRI=/200x200/s3.amazonaws.com/arc-authors/washpost/f4263170-971b-4a1c-a0b6-cfbfbc334580.png"
-                }}
+                source={
+                  require('../assets/QR.png')
+                }
               />
             </View>
             {!loading ? (

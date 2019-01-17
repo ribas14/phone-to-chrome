@@ -23,7 +23,7 @@ class ScanScreen extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
   }
-      
+
   render() {
     const { hasCameraPermission } = this.state;
 
@@ -82,29 +82,30 @@ class ScanScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  qr: {
-    marginTop: '20%',
-    marginBottom: '20%',
-    width: qrSize,
-    height: qrSize,
-  },
-  description: {
-    fontSize: width * 0.09,
-    marginTop: '10%',
-    textAlign: 'center',
-    width: '70%',
-    color: 'white',
-  },
-  cancel: {
-    fontSize: width * 0.05,
-    textAlign: 'center',
-    width: '70%',
-    color: 'white',
-  },
+
+container: {
+  flex: 1,
+  alignItems: 'center',
+},
+qr: {
+  marginTop: '20%',
+  marginBottom: '20%',
+  width: qrSize,
+  height: qrSize,
+},
+description: {
+  fontSize: width * 0.09,
+  marginTop: '10%',
+  textAlign: 'center',
+  width: '70%',
+  color: 'white',
+},
+cancel: {
+  fontSize: width * 0.05,
+  textAlign: 'center',
+  width: '70%',
+  color: 'white',
+},
 })
 function delay(time) {
   return new Promise(function(resolve, reject) {
