@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "f86645756320e894e031";
+/******/ 	var hotCurrentHash = "b02c30cb17de733b2b13";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1154,7 +1154,7 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_options_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/options.css */ \"./src/css/options.css\");\n/* harmony import */ var _css_options_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_options_css__WEBPACK_IMPORTED_MODULE_0__);\n\r\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvb3B0aW9ucy5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3NyYy9qcy9vcHRpb25zLmpzP2M1ZDgiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFwiLi4vY3NzL29wdGlvbnMuY3NzXCI7XHJcbiJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./src/js/options.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_options_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/options.css */ \"./src/css/options.css\");\n/* harmony import */ var _css_options_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_options_css__WEBPACK_IMPORTED_MODULE_0__);\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvb3B0aW9ucy5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3NyYy9qcy9vcHRpb25zLmpzP2M1ZDgiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFwiLi4vY3NzL29wdGlvbnMuY3NzXCI7XG4iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/js/options.js\n");
 
 /***/ }),
 
@@ -1167,7 +1167,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css
 
 __webpack_require__(/*! webpack-dev-server/client?http://localhost:3001 */"./node_modules/webpack-dev-server/client/index.js?http://localhost:3001");
 __webpack_require__(/*! webpack/hot/dev-server */"./node_modules/webpack/hot/dev-server.js");
-module.exports = __webpack_require__(/*! C:\Users\Santri\Documents\phone-to-chrome\chrome-extension-webpack-boilerplate\src\js\options.js */"./src/js/options.js");
+module.exports = __webpack_require__(/*! /home/ribas/Documents/phone-to-chrome/chrome-extension-webpack-boilerplate/src/js/options.js */"./src/js/options.js");
 
 
 /***/ })

@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://93-gdw.anonymous.chat-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.93-gdw.anonymous.chat-app.exp.direct",
+  "ngrokPid": 23107
 }

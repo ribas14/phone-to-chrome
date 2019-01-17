@@ -13,15 +13,23 @@ class Login extends React.Component {
   }
 
   cleanStorage() {
-    AsyncStorage.clear()     
+    try {
+      AsyncStorage.clear()
+    } catch (e) {
+      console.warn(e)
+    }
   }
 
   async componentDidMount() {
-    // this.cleanStorage()    
-    var stringQr = await AsyncStorage.getItem("stringQr");
-    var roomStringQr = await AsyncStorage.getItem("roomStringQr");
+    // this.cleanStorage()
+    try {
+      var stringQr = await AsyncStorage.getItem("stringQr");
+      var roomStringQr = await AsyncStorage.getItem("roomStringQr");
+    } catch (e) {
+      console.warn(e)
+    }
 
-    if (this.props.roomStringQr) {    
+    if (this.props.roomStringQr) {
       login(
         {
           stringQr: this.props.stringQr,
@@ -41,7 +49,7 @@ class Login extends React.Component {
   }
 
   render() {
-    return <View/>;
+    return <View />;
   }
 }
 

@@ -43,7 +43,7 @@ class ScanScreen extends React.Component {
     try {
       await AsyncStorage.setItem(name, JSON.stringify(data));
       return
-    } catch (error) {
+    } catch (error) {   
       console.log(error);
       return
     }
@@ -58,11 +58,9 @@ class ScanScreen extends React.Component {
     let stringQr = Math.random()
       .toString(36)
       .substring(2, 19);
-
       
     await this.saveStorageRoomIdUserId('roomStringQr', roomStringQr)
     await this.saveStorageRoomIdUserId('stringQr', stringQr)
-
     login({ stringQr, roomStringQr }, this.props.navigation);
   };
 }

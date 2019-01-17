@@ -36,8 +36,10 @@ io.on("connection", socket => {
       ]).then(([user]) => {
         mobileSockets[room[0].id] = socket.id;
         socket.emit("userCreated", { room: room[0], user: user[0] });
-        Conversation.findOrCreateConversation(room[0].id).then(conversation =>
+        console.log(`teste`)
+        Conversation.findOrCreateConversation(room[0].id).then(conversation => {
           socket.emit("priorMessages", conversation.messages)
+        }
         );
       });
     });

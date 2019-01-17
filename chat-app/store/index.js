@@ -25,13 +25,14 @@ export const login = (credentials, navigation) => {
     roomStringQr = credentials.roomStringQr;
     store.dispatch(gotRoomStringQr(roomStringQr));
     
-    console.log(roomStringQr)
-
     socket.emit("newStringQr", { stringQr, roomStringQr });
   }
 };
 export const openChat = (user, room) => {
   socket.emit("chat", { user, room });
+};
+export const warnServerPhoneConnected = ( room) => {
+  socket.emit("warnServerPhoneConnected", { room });
 };
 export const sendMessage = (text, sender, room) => {
   socket.emit("message", { text, sender, room });
