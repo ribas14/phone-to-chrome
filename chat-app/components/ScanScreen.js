@@ -38,16 +38,16 @@ class ScanScreen extends React.Component {
         <BarCodeScanner
           onBarCodeScanned={this.handleBarCodeScanned}
           style={[StyleSheet.absoluteFill, styles.container]}>
-          <Text style={styles.description}>Scan your QR code</Text>
+          <Text style={styles.description}>Scan the extension QR code</Text>
           <Image
             style={styles.qr}
             source={require('../assets/QR.png')}
           />
-          <Text
+          {/* <Text
             onPress={() => this.props.navigation.pop()}
             style={styles.cancel}>
             Cancel
-          </Text>
+          </Text> */}
         </BarCodeScanner>
       </View>
     );
