@@ -8,14 +8,14 @@ const socket = io.connect("http://144.202.17.15/");
 
 socket.on("qrCodeReadOnMobile", () => {
   closeModal()
-});
+});   
 
 socket.on("cleanStorage", () => {
   cleanStorage()    
 });
 
 socket.on("priorMessages", messages => {
-  if (messages)
+  if (messages)   
     messages.reverse().forEach(function(message) {
       appendToList(message);
     });
