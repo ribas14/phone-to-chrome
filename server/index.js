@@ -3,6 +3,8 @@ const server = require("http")
   .listen(3000);
 const conn = require("./db").conn;
 const io = require("socket.io")(server);
+
+
 const { Room, User, Conversation, Message } = require("./db").models;
 
 // IMPORTANTE
@@ -50,7 +52,7 @@ io.on("connection", socket => {
   });
 
   socket.on("newId", (obj) => {
-    io.in(obj).emit("cleanStorage");
+    socket.in(obj).emit("cleanStorage");
   });
 
   socket.on("qrCodeReadOnMobile", (obj) => {

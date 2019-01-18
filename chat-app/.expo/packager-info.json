@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://93-gdw.anonymous.chat-app.exp.direct",
-  "packagerNgrokUrl": "https://packager.93-gdw.anonymous.chat-app.exp.direct",
-  "ngrokPid": 17608,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerNgrokUrl": "https://93-gdw.ribas.chat-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.93-gdw.ribas.chat-app.exp.direct",
+  "ngrokPid": 17416,
+  "packagerPort": 19001,
+  "packagerPid": 13000,
   "devToolsPort": 19002
 }

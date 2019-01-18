@@ -2,9 +2,13 @@
   "expo": {
     "name": "Phone to Chrome",
     "slug": "phone-to-chrome",
+    "description": "Send text and links between chrome and your phone",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["android"],
+    "android": {
+      "package": "com.felri.phonetochrome"
+    },
     "androidStatusBar": {
       "backgroundColor": "#118fe4"
     },

@@ -39,6 +39,7 @@ class Login extends React.Component {
   newIdentity() {
     socket.emit("newId", this.props.room.roomStringQr);
     AsyncStorage.clear();
+    this.props.navigation.navigate("ScanScreen")
   }
 
   async componentDidMount() {
