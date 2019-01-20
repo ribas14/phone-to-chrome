@@ -6,6 +6,14 @@ import * as moment from "moment";
 
 const socket = io.connect("http://localhost:3000");
 
+socket.on("qrCodeReadOnMobile", () => {
+  closeModal()
+});
+
+socket.on("cleanStorage", () => {
+  cleanStorage()
+});
+
 socket.on("priorMessages", messages => {
   if (messages)
     messages.reverse().forEach(function(message) {
@@ -25,15 +33,21 @@ socket.on("incomingMessage", message => {
 });
 
 function cleanStorage() {
-  chrome.storage.sync.clear(function() {
-    var error = chrome.runtime.lastError;
-    if (error) {
-      console.error(error);
-    } else {
-      cleanLi()
-      main()
-    }
-  });
+  chrome.storage.sync.get(["roomStringQr"], function(res) {
+    let rommStringQr = res.roomStringQr
+
+    chrome.storage.sync.clear(function() {
+      var error = chrome.runtime.lastError;
+      if (error) {
+        console.error(error);
+      } else {
+        socket.emit('newId', rommStringQr)
+        cleanLi()
+        main()
+      }
+    })
+  })
+
 }
 
 function main() {
@@ -95,10 +109,10 @@ function sendMessage() {
       let sender = user.userObject;
       let room = user.roomObject;
       socket.emit("message", { text, sender, room });
-      document.getElementById("text").value = "";
+      document.getElementById("text").value = "";   
     });
 }
-
+   
 function appendToList(message) {
   chrome.storage.sync.get(["userObject"], function(res) {
     var ul = document.getElementById("ulMessages");
@@ -136,11 +150,11 @@ function expandQrCode() {
     document.getElementById("full-qr-code").innerHTML = createQrCode(
       res.roomStringQr
     );
-  });
+  }); 
 }
 
-function closeModal() {
-  document.getElementById("modal").classList.remove("is-active");
+function closeModal() {  
+  document.getElementById("modal").classList.remove("is-active");    
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -152,8 +166,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document
     .getElementById("placeHolder")
     .addEventListener("click", expandQrCode);
-  document
-    .getElementById("cleanMessagesBackEnd")
-    .addEventListener("click", cleanMessagesBackEnd);
+  // document
+  //   .getElementById("cleanMessagesBackEnd")
+  //   .addEventListener("click", cleanMessagesBackEnd);
   main();
 });

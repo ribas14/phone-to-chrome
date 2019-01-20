@@ -51,6 +51,14 @@ io.on("connection", socket => {
     );
   });
 
+  socket.on("newId", (obj) => {
+    io.in(obj).emit("cleanStorage");
+  });
+
+  socket.on("qrCodeReadOnMobile", (obj) => {
+    io.in(obj).emit("qrCodeReadOnMobile");
+  });
+
   socket.on("message", ({ text, sender, room }) => {
     Message.createMessage(text, sender, room).then(message => {
       io.in(room.roomStringQr).emit("incomingMessage", message);
