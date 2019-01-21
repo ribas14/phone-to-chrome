@@ -1,13 +1,15 @@
 import React from "react";
-import { StyleSheet, View, AsyncStorage, Text, Button } from "react-native";
+import { StyleSheet, View, AsyncStorage, Text, Button, Linking } from "react-native";
 import { connect } from "react-redux";
 import { Icon } from "native-base";
 import socket from "../store/socket";
 
+const EXTENSION_URL = "https://chrome.google.com/webstore/detail/chrome-to-phone/hobhnejpjknnhojomhmppgdalddofend"
+
 class Login extends React.Component {
   constructor() {
     super();
-    this.newIdentity = this.newIdentity.bind(this);
+    this.newIdentity = this.newIdentity.bind(this);   
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -39,6 +41,7 @@ class Login extends React.Component {
   newIdentity() {
     socket.emit("newId", this.props.room.roomStringQr);
     AsyncStorage.clear();
+    this.props.navigation.navigate("ScanScreen")
   }
 
   async componentDidMount() {
@@ -52,7 +55,12 @@ class Login extends React.Component {
           onPress={() => this.newIdentity()}
           title="New identity"
           color="#209cee"
-          accessibilityLabel="Learn more about this purple button"
+        />
+        <View style={{ padding: 10 }}></View>
+        <Button
+          onPress={() => Linking.openURL(EXTENSION_URL)}
+          title="Chrome extension"
+          color="#209cee"
         />
       </View>
     );
@@ -61,8 +69,10 @@ class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 20,
     flex: 1,
     alignItems: "center",
+    justifyContent: 'center',
     padding: 20
   },
 

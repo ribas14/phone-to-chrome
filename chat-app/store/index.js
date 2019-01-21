@@ -36,10 +36,7 @@ export const login = (credentials, navigation) => {
 export const openChat = (user, room) => {
   socket.emit("chat", { user, room });
 };
-export const warnServerPhoneConnected = ( room) => {
-  socket.emit("warnServerPhoneConnected", { room });
-};
-export const sendMessage = (text, sender, room) => {
+export const sendMessage = (text, sender, room) => {0
   socket.emit("message", { text, sender, room });
 };
 

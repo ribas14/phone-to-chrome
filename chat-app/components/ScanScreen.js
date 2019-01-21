@@ -5,11 +5,16 @@ import {
   View,
   AsyncStorage,
   Dimensions,
-  Image
+  Image,
+  Linking,
+  TouchableOpacity
 } from "react-native";
 import { BarCodeScanner, Permissions } from "expo";
 import { connect } from "react-redux";
 import { login } from "../store";
+
+const EXTENSION_URL =
+  "https://chrome.google.com/webstore/detail/chrome-to-phone/hobhnejpjknnhojomhmppgdalddofend";
 
 const { width } = Dimensions.get("window");
 const qrSize = width * 0.7;
@@ -59,11 +64,14 @@ class ScanScreen extends React.Component {
         >
           <Text style={styles.description}>Scan the extension QR code</Text>
           <Image style={styles.qr} source={require("../assets/QR.png")} />
-          {/* <Text
-            onPress={() => this.props.navigation.pop()}
-            style={styles.cancel}>
-            Cancel
-          </Text> */}
+          <TouchableOpacity>
+            <Text
+              onPress={() => Linking.openURL(EXTENSION_URL)}
+              style={styles.cancel}
+            >
+              Download Chrome extension
+            </Text>
+          </TouchableOpacity>
         </BarCodeScanner>
       </View>
     );

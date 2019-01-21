@@ -4,18 +4,18 @@ import io from "socket.io-client";
 import qrcode from "qrcode-generator";
 import * as moment from "moment";
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://144.202.17.15/");
 
 socket.on("qrCodeReadOnMobile", () => {
   closeModal()
-});
+});   
 
 socket.on("cleanStorage", () => {
-  cleanStorage()
+  cleanStorage()    
 });
 
 socket.on("priorMessages", messages => {
-  if (messages)
+  if (messages)   
     messages.reverse().forEach(function(message) {
       appendToList(message);
     });
