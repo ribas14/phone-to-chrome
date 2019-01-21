@@ -55,7 +55,7 @@ class ScanScreen extends React.Component {
         >
           <Text>No access to camera</Text>
         </View>
-      );
+      );  
     }
     return (
       <View style={{ flex: 1 }}>
@@ -70,7 +70,7 @@ class ScanScreen extends React.Component {
               onPress={() => Linking.openURL(SITE_URL)}
               style={[styles.cancel, {textDecorationLine: "underline"}]}
             >
-              Go to CtoP.site
+              Go to ctop.site
             </Text>
           </TouchableOpacity>
           <Text style={styles.cancel}>or</Text>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     color: "white"
   },
   cancel: {
-    fontSize: width * 0.05,
+    fontSize: width * 0.07,
     textAlign: "center",
     width: "70%",
     color: "white"
