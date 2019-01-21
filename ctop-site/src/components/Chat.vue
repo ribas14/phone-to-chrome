@@ -373,4 +373,8 @@ a {
   padding: 20px 0;
   background: white;
 }
+textarea {
+  background: #f3f3f3;
+
+}
 </style>
