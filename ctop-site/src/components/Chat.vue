@@ -124,6 +124,15 @@
       <div class="modal-background" @click="showNewQr = false"></div>
       <div class="modal-content" @click.stop>
         <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+        <div>
+          <a
+            class="button is-info is-block is-alt default-button"
+            target="_blank"
+            href="https://play.google.com/store/apps/details?id=com.felri.phonetochrome"
+          >
+            <font-awesome-icon :icon="['fab','google-play']" style="margin-right: 5px"/>Download app
+          </a>
+        </div>
       </div>
       <button class="modal-close is-large" @click="showNewQr = false" aria-label="close"></button>
     </div>
@@ -131,6 +140,15 @@
       <div class="modal-background" @click="showQr = false"></div>
       <div class="modal-content" @click.stop>
         <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+        <div>
+          <a
+            class="button is-info is-block is-alt default-button"
+            target="_blank"
+            href="https://play.google.com/store/apps/details?id=com.felri.phonetochrome"
+          >
+            <font-awesome-icon :icon="['fab','google-play']" style="margin-right: 5px"/>Download app
+          </a>
+        </div>
       </div>
       <button class="modal-close is-large" @click="showQr = false" aria-label="close"></button>
     </div>
@@ -188,9 +206,8 @@ export default {
     this.$socket.emit("newStringQr", data);
   },
   watch: {
-    textarea(){
-      if (this.search)
-        this.search = ''
+    textarea() {
+      if (this.search) this.search = "";
     },
     search(newSearch) {
       if (newSearch.length > 0) {
@@ -371,10 +388,10 @@ a {
 .modal-content {
   width: calc(50vh - 40px);
   padding: 20px 0;
+  padding-bottom: 0;
   background: white;
 }
 textarea {
   background: #f3f3f3;
-
 }
 </style>
