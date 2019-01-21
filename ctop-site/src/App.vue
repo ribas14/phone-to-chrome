@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <head>
+      <title>HTML Reference</title>
+    </head>
     <Chat msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
