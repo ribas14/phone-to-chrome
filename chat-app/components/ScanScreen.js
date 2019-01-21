@@ -15,9 +15,10 @@ import { login } from "../store";
 
 const EXTENSION_URL =
   "https://chrome.google.com/webstore/detail/chrome-to-phone/hobhnejpjknnhojomhmppgdalddofend";
+  const SITE_URL = "https://CtoP.site"
 
 const { width } = Dimensions.get("window");
-const qrSize = width * 0.7;
+const qrSize = width * 0.5;
 
 class ScanScreen extends React.Component {
   constructor() {
@@ -54,7 +55,7 @@ class ScanScreen extends React.Component {
         >
           <Text>No access to camera</Text>
         </View>
-      );
+      );  
     }
     return (
       <View style={{ flex: 1 }}>
@@ -62,14 +63,23 @@ class ScanScreen extends React.Component {
           onBarCodeScanned={this.handleBarCodeScanned}
           style={[StyleSheet.absoluteFill, styles.container]}
         >
-          <Text style={styles.description}>Scan the extension QR code</Text>
+          <Text style={styles.description}>Scan the QR code</Text>
           <Image style={styles.qr} source={require("../assets/QR.png")} />
           <TouchableOpacity>
             <Text
-              onPress={() => Linking.openURL(EXTENSION_URL)}
-              style={styles.cancel}
+              onPress={() => Linking.openURL(SITE_URL)}
+              style={[styles.cancel, {textDecorationLine: "underline"}]}
             >
-              Download Chrome extension
+              Go to ctop.site
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.cancel}>or</Text>
+          <TouchableOpacity>
+            <Text
+              onPress={() => Linking.openURL(EXTENSION_URL)}
+              style={[styles.cancel, {textDecorationLine: "underline"}]}
+            >
+              Download extension
             </Text>
           </TouchableOpacity>
         </BarCodeScanner>
@@ -123,7 +133,7 @@ const styles = StyleSheet.create({
     color: "white"
   },
   cancel: {
-    fontSize: width * 0.05,
+    fontSize: width * 0.07,
     textAlign: "center",
     width: "70%",
     color: "white"

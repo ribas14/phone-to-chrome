@@ -1,6 +1,8 @@
 conn.js
-
-
+socket.js
+build/
+.expo/
+.watchmanconfig
 # Logs
 logs
 *.log

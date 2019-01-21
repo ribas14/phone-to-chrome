@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import qrcode from "qrcode-generator";
 import * as moment from "moment";
 
-const socket = io.connect("http://144.202.17.15/");
+const socket = io.connect("https://ctop.site/");   
 
 socket.on("qrCodeReadOnMobile", () => {
   closeModal()
