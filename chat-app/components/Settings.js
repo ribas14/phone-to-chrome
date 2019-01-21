@@ -5,6 +5,7 @@ import { Icon } from "native-base";
 import socket from "../store/socket";
 
 const EXTENSION_URL = "https://chrome.google.com/webstore/detail/chrome-to-phone/hobhnejpjknnhojomhmppgdalddofend"
+const SITE_URL = "https://CtoP.site"
 
 class Login extends React.Component {
   constructor() {
@@ -60,6 +61,11 @@ class Login extends React.Component {
         <Button
           onPress={() => Linking.openURL(EXTENSION_URL)}
           title="Chrome extension"
+          color="#209cee"
+        />
+        <Button
+          onPress={() => Linking.openURL(SITE_URL)}
+          title="Go to site"
           color="#209cee"
         />
       </View>
