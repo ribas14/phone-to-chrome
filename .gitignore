@@ -1,5 +1,5 @@
 conn.js
-
+socket.js
 build/
 .expo/
 .watchmanconfig
